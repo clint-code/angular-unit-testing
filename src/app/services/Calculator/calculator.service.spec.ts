@@ -1,25 +1,41 @@
 import { LoggerService } from "../Logger/logger.service";
 import { CalculatorService } from "./calculator.service";
 
+//test suite: a function that sets out a series of test specs related to 
+//either a piece of code or a section of functionality
 describe('CalculatorService', () => {
 
-  it('should add two numbers', () => {
+  let mockLoggerService: any;
+  let calculator: CalculatorService;
 
-    let mockLoggerService = jasmine.createSpyObj('LoggerService', ['log']);
-    const calculator = new CalculatorService(mockLoggerService);
-    let result = calculator.add(2,2);
-    expect(result).toBe(4);
-    expect(mockLoggerService.log).toHaveBeenCalledTimes(1);
+  beforeEach(() => {
+    console.log("Calling before each");
+    mockLoggerService = jasmine.createSpyObj('LoggerService', ['log']);
+    calculator = new CalculatorService(mockLoggerService);
   });
 
-  it('should subtract two numbers', () => {
+  //test spec: this contains one or more expectations, where we set out
+  //what we expect the code tested to be able to do
+  it('should add two numbers', () => {
 
-    let mockLoggerService = jasmine.createSpyObj('LoggerService', ['log']);
-    let calculator = new CalculatorService(mockLoggerService);
-    let result = calculator.subtract(2,2);
-    expect(result).toBe(0);
+    console.log("Calling add");
+    let result = calculator.add(2,2);
+
+    //expect expression: describes what we expect the function under test to do
+    expect(result).toBe(4);
     expect(mockLoggerService.log).toHaveBeenCalledTimes(1);
-   
+
+  });
+
+  //test spec
+  it('should subtract two numbers', () => {
+    
+    console.log("Calling subtract");
+    let result = calculator.subtract(2,2);
+    
+    expect(result).toBe(0);
+    expect(mockLoggerService.log).toHaveBeenCalledTimes(1)
+
   });
 
 });
